@@ -1,10 +1,11 @@
 import React from 'react';
 import Searchbar from './Searchbar/Searchbar';
+import css from './App.module.css';
 import { Button } from './Button/Button';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Modal } from './Modal/Modal';
 import { Loader } from './Loader/Loader';
-import { getPictures } from './services/api';
+import { getPictures } from 'services/api';
 
 export default class App extends React.Component {
   state = {
@@ -50,30 +51,9 @@ export default class App extends React.Component {
     this.setState({ selectedPicture: null, isModalOpen: false });
   };
 
-  handleKeyDown = event => {
-    if (event.key === 'Escape') {
-      this.handleCloseModal();
-    }
-  };
-
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-  }
-
   render() {
     return (
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr',
-          gridGap: '16px',
-          paddingBottom: '24px',
-        }}
-      >
+      <div className={css.app}>
         <Searchbar onSubmitForm={this.handleFormSubmit} />
         <ImageGallery
           pictures={this.state.pictures}
